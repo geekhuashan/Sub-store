@@ -16,7 +16,7 @@ let proxies = await produceArtifact({
 config.outbounds.push(...proxies)
 
 config.outbounds.map(i => {
-    if (['🌐 其他节点', '♻️ 自动选择'].includes(i.tag)) {
+    if (['🌐 其他节点', '♻️ 自动选择', '✋ 手动选择'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies))
     }
     if (['🇭🇰 香港自动'].includes(i.tag)) {
@@ -31,7 +31,7 @@ config.outbounds.map(i => {
     if (['🇸🇬 狮城自动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /新|sg|singapore|Singapore|🇸🇬/i))
     }
-    if (['🇺🇲 美国节点', '🇺🇲 美国自动'].includes(i.tag)) {
+    if (['🇺🇲 美国节点', '🇺🇲 美国自动', '🇺🇸 美国手动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /美|us|unitedstates|united states|States|🇺🇸/i))
     }
     if (['🇰🇷 韩国节点', '🇰🇷 韩国自动'].includes(i.tag)) {
