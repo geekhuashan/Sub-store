@@ -179,105 +179,105 @@
                 "tag": "apple_ip",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/apple.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/apple.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "apple_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/apple.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/apple.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "bahamut_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/bahamut.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/bahamut.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "bilibili_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/bilibili.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/bilibili.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "cn_ip",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "cn_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/cn.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/cn.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "google_ip",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/google.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/google.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "google_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "netflix_ip",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/netflix.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/netflix.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "netflix_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/netflix.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/netflix.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "openai_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/openai.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/openai.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "proxy_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/geolocation-!cn.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/geolocation-!cn.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "telegram_ip",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/telegram.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/telegram.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "telegram_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/telegram.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/telegram.srs",
                 "download_detour": "🎯 全球直连"
             },
             {
                 "tag": "youtube_domain",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/youtube.srs",
+                "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/youtube.srs",
                 "download_detour": "🎯 全球直连"
             }
         ],
@@ -293,10 +293,10 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
-                "♻️ 自动选择"
+                "♻️ 自动选择",
+                "🎯 全球直连"
             ],
             "default": "♻️ 自动选择"
         },
@@ -310,7 +310,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -327,7 +326,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -344,7 +342,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -374,7 +371,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -391,7 +387,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -408,7 +403,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -425,7 +419,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -442,7 +435,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -459,7 +451,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -467,34 +458,10 @@
             "default": "🚀 节点选择"
         },
         {
-            "tag": "🇭🇰 香港节点",
-            "type": "selector",
-            "outbounds": []
-        },
-        {
-            "tag": "🇨🇳 台湾节点",
-            "type": "selector",
-            "outbounds": []
-        },
-        {
-            "tag": "🇯🇵 日本节点",
-            "type": "selector",
-            "outbounds": []
-        },
-        {
-            "tag": "🇸🇬 狮城节点",
-            "type": "selector",
-            "outbounds": []
-        },
-        {
-            "tag": "🇺🇲 美国节点",
-            "type": "selector",
-            "outbounds": []
-        },
-        {
             "tag": "🌐 其他节点",
             "type": "selector",
-            "outbounds": []
+            "outbounds": [],
+            "default": "🎯 全球直连"
         },
         {
             "tag": "🇭🇰 香港自动",
@@ -554,7 +521,6 @@
                 "🇨🇳 台湾自动",
                 "🇯🇵 日本自动",
                 "🇸🇬 狮城自动",
-                "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
                 "🌐 其他节点",
                 "♻️ 自动选择"
@@ -564,11 +530,28 @@
         {
             "tag": "🎯 全球直连",
             "type": "direct"
+        },
+        {
+            "tag": "🛑 全球拦截",
+            "type": "block"
+        },
+        {
+            "tag": "⛔ 应用拦截",
+            "type": "block"
+        },
+        {
+            "tag": "🔓 解锁网易云音乐",
+            "type": "direct"
+        },
+        {
+            "tag": "🔒 网易云音乐",
+            "type": "direct"
         }
     ],
     "inbounds": [
         {
             "type": "tun",
+            "tag": "tun-in",
             "address": [
                 "172.19.0.0/30",
                 "fdfe:dcba:9876::0/126"
@@ -585,6 +568,7 @@
         },
         {
             "type": "mixed",
+            "tag": "mixed-in",
             "listen": "127.0.0.1",
             "listen_port": 7890
         }
@@ -593,7 +577,7 @@
         "clash_api": {
             "external_controller": "127.0.0.1:9090",
             "external_ui": "ui",
-            "external_ui_download_url": "https://ghfast.top/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+            "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
             "external_ui_download_detour": "🎯 全球直连"
         },
         "cache_file": {
