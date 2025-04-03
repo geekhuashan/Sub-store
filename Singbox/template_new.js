@@ -19,16 +19,16 @@ config.outbounds.map(i => {
     if (['🌐 其他节点', '♻️ 自动选择'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies))
     }
-    if (['🇭🇰 香港节点', '🇭🇰 香港自动'].includes(i.tag)) {
+    if (['🇭🇰 香港自动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|hong kong|Hong|🇭🇰/i))
     }
-    if (['🇨🇳 台湾节点', '🇨🇳 台湾自动'].includes(i.tag)) {
+    if (['🇨🇳 台湾自动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /台|tw|taiwan|tai|🇨🇳|🇹🇼/i))
     }
-    if (['🇯🇵 日本节点', '🇯🇵 日本自动'].includes(i.tag)) {
+    if (['🇯🇵 日本自动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /日本|jp|japan|Japan|🇯🇵/i))
     }
-    if (['🇸🇬 狮城节点', '🇸🇬 狮城自动'].includes(i.tag)) {
+    if (['🇸🇬 狮城自动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /新|sg|singapore|Singapore|🇸🇬/i))
     }
     if (['🇺🇲 美国节点', '🇺🇲 美国自动'].includes(i.tag)) {
