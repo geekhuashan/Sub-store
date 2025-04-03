@@ -159,6 +159,21 @@ if (!config || !config.outbounds || !Array.isArray(config.outbounds)) {
     config.outbounds = config.outbounds || [];
 }
 
+// 过滤空的outbound对象
+config.outbounds = config.outbounds.filter(outbound => {
+    if (!outbound || typeof outbound !== 'object') {
+        console.log(`[📦 sing-box] 警告: 发现无效的outbound项，已移除`);
+        return false;
+    }
+    
+    if (!outbound.type) {
+        console.log(`[📦 sing-box] 警告: 发现缺少type的outbound项，已移除: ${outbound.tag || '无标签'}`);
+        return false;
+    }
+    
+    return true;
+});
+
 // 返回最终配置
 try {
     $content = JSON.stringify(config, null, 2);
