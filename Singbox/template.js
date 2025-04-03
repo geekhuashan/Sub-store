@@ -16,7 +16,17 @@ const fallback_outbound = {
 };
 
 // 解析基础模板
-let config = JSON.parse($files[0]);
+let config;
+try {
+    if (!$files || !$files[0]) {
+        throw new Error('模板文件不存在');
+    }
+    config = JSON.parse($files[0]);
+} catch (e) {
+    console.log(`[📦 sing-box] 错误: 解析模板失败: ${e.message}`);
+    // 使用空配置作为后备
+    config = { outbounds: [] };
+}
 let fallbackAdded = false;
 
 // 获取节点
@@ -25,13 +35,19 @@ let proxies = produceArtifact({
     type: /^1$|col/i.test(subTypeStr) ? "collection" : "subscription",
     platform: "sing-box",
     produceType: "internal",
-});
+}) || [];
+
+// 确保proxies是一个数组
+if (!Array.isArray(proxies)) {
+    console.log(`[📦 sing-box] 警告: 获取到的代理不是数组，转换为数组`);
+    proxies = proxies ? [proxies] : [];
+}
 
 // 添加代理节点到outbounds
 config.outbounds.push(...proxies);
 
 // 填充预定义的组
-const proxyNodeTags = proxies.map(node => node.tag);
+const proxyNodeTags = proxies.filter(node => node && node.tag).map(node => node.tag);
 console.log(`[📦 sing-box] 找到 ${proxyNodeTags.length} 个代理节点`);
 
 // 填充地区节点组
@@ -62,8 +78,16 @@ config.outbounds.forEach(outbound => {
     }
     else if (outbound.tag === "🌐 其他节点" && Array.isArray(outbound.outbounds)) {
         // 其他节点: 匹配所有不在其他分组中的节点
-        outbound.outbounds.push(...getTags(proxies, /^(?!.*(港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates|韩|kr|korea|🇭🇰|🇹🇼|🇯🇵|🇸🇬|🇺🇸|🇰🇷))/i));
-        console.log(`[📦 sing-box] 填充组 "${outbound.tag}" 节点数: ${outbound.outbounds.length}`);
+        try {
+            // 使用更简单的方法本地过滤
+            const excludeRegex = /(\u6e2f|hk|hongkong|hong kong|\u53f0|tw|taiwan|\u65e5|jp|japan|\u65b0|sg|singapore|\u7f8e|us|unitedstates|united states|\u97e9|kr|korea|\ud83c\udded\ud83c\uddf0|\ud83c\uddf9\ud83c\uddfc|\ud83c\uddef\ud83c\uddf5|\ud83c\uddf8\ud83c\uddec|\ud83c\uddfa\ud83c\uddf8|\ud83c\uddf0\ud83c\uddf7)/i;
+            const otherTags = proxies
+                .filter(node => node && node.tag && !excludeRegex.test(node.tag))
+                .map(node => node.tag);
+            outbound.outbounds.push(...otherTags);
+        } catch (e) {
+            console.log(`[📦 sing-box] 错误: 处理其他节点失败: ${e.message}`);
+        }
     }
     else if (outbound.tag === "♻️ 自动选择" && Array.isArray(outbound.outbounds)) {
         // 自动选择: 使用所有节点
@@ -128,10 +152,34 @@ if (mainProxySelector && mainProxySelector.type === 'selector') {
     console.log(`[📦 sing-box] 调整主选择器 "${mainProxySelector.tag}" 默认值: "${mainProxySelector.default}"`);
 }
 
+// 检查配置是否有效
+if (!config || !config.outbounds || !Array.isArray(config.outbounds)) {
+    console.log(`[📦 sing-box] 错误: 无效的配置文件结构`);
+    config = config || {};
+    config.outbounds = config.outbounds || [];
+}
+
 // 返回最终配置
-$content = JSON.stringify(config, null, 2);
+try {
+    $content = JSON.stringify(config, null, 2);
+} catch (e) {
+    console.log(`[📦 sing-box] 错误: 配置序列化失败: ${e.message}`);
+    $content = JSON.stringify({ error: e.message });
+}
 
 // 辅助函数：根据正则过滤节点并返回标签
 function getTags(proxies, regex) {
-    return (regex ? proxies.filter(p => regex.test(p.tag)) : proxies).map(p => p.tag);
+    // 确保proxies是数组
+    if (!Array.isArray(proxies)) {
+        console.log(`[📦 sing-box] 警告: getTags接收到非数组参数`);
+        return [];
+    }
+    try {
+        return (regex ? proxies.filter(p => p && p.tag && regex.test(p.tag)) : proxies)
+            .filter(p => p && p.tag) // 确保每项都有tag属性
+            .map(p => p.tag);
+    } catch (e) {
+        console.log(`[📦 sing-box] 错误: getTags执行失败: ${e.message}`);
+        return [];
+    }
 }
