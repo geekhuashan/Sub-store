@@ -134,13 +134,13 @@
                 "outbound": "telegram"
             },
             {
-                "rule_set": "telegram_domain", 
+                "rule_set": "telegram_domain",
                 "action": "route",
                 "outbound": "telegram"
             },
             {
                 "rule_set": "apple_ip",
-                "action": "route", 
+                "action": "route",
                 "outbound": "apple"
             },
             {
@@ -281,7 +281,7 @@
                 "download_detour": "direct"
             }
         ],
-        "final": "final",
+        "final": "🐟 漏网之鱼",
         "auto_detect_interface": true
     },
     "outbounds": [
