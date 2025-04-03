@@ -1,44 +1,12 @@
 /**
  * Sub-Store Script to Populate Sing-box Template Outbounds
- *
- * Description:
- * Reads a base Sing-box template containing predefined policy groups (with empty 'outbounds').
- * Fetches nodes from a specified Sub-Store subscription/profile.
- * Populates the 'outbounds' array of the predefined groups based on filtering rules.
- * Adds fetched nodes to the main 'outbounds' list.
- *
- * Required Parameters (passed via URL fragment #):
- * - type=0|1        (Required): 0 for single subscription, 1 for profile.
- * - name=<name>     (Required): The exact name of the subscription or profile in Sub-Store.
- * - outbound=<rules> (Required): Rules for populating groups. Format:
- * GroupName1🏷️FilterType:FilterValue|all🕳️GroupName2🏷️FilterType:FilterValue...
- * - GroupName: MUST exactly match the 'tag' of a policy group in the base template.
- * - FilterType: 'kw' (keywords, pipe-separated), 'rgx' (regex), or 'all' (use all proxy nodes, FilterValue is ignored).
- * - FilterValue: Keywords or regex pattern. Ignored if FilterType is 'all'.
- * - Case Insensitive: Add 'ℹ️' prefix to FilterValue for case-insensitivity (e.g., kw:ℹ️hk|hong kong).
- * Example: 🇭🇰 香港节点🏷️kw:🇭🇰|港|Hong|HK🕳️♻️ 自动选择🏷️all🕳️🌐 其他节点🏷️rgx:(?i)^(?!.*(?:🇭🇰|港|TW))
- * - fallback_tag=<tag> (Optional): Tag to use for empty groups. Default: DIRECT.
- * - includeUnsupportedProxy=true|false (Optional): Include SSR etc. Default: false.
- * - url=<encoded_url> (Optional): Fetch nodes directly from a URL instead of Sub-Store profile/sub.
- *
- * Base Template Expectation:
- * Expects a valid JSON string containing predefined 'outbounds' array with policy group objects
- * (like selectors, url-tests) having empty 'outbounds' arrays ready to be populated.
- * Script also adds fetched proxy nodes at the end of the main 'outbounds' array.
- *
- * Sub-Store API Assumptions (PLACEHOLDERS - MUST BE ADAPTED):
- * - $substore.getParameters(): Returns URL fragment parameters as an object.
- * - $substore.getBaseContent(): Returns the base template string.
- * - $substore.fetchNodes({ type: 'subscription' | 'profile', name: string }): Returns array of node objects.
- * - $substore.fetchNodes({ url: string }): Returns array of node objects from URL.
- * - console.log(), console.warn(), console.error(): For logging.
  */
 
-(async () => {
-    // --- Constants & Defaults ---
-    const DEFAULT_FALLBACK_TAG = 'DIRECT'; // Use DIRECT as default fallback
+function run() {
+    // --- 常量与默认值 ---
+    const DEFAULT_FALLBACK_TAG = 'DIRECT';
 
-    // --- Helper Functions ---
+    // --- 辅助函数 ---
     function parseParameters(paramString = (typeof $substore !== 'undefined' && $substore.getParameters) ? $substore.getParameters() : window.location.hash) {
         const params = {};
         if (paramString.startsWith('#')) {
@@ -53,7 +21,6 @@
         return params;
     }
 
-    // Parses "GroupName🏷️FilterType:FilterValue|all🕳️..."
     function parseOutboundRules(rulesStr) {
         if (!rulesStr) return [];
         const rules = [];
@@ -64,12 +31,12 @@
                 const filterDefinition = parts[1];
                 const filterParts = filterDefinition.split(':');
                 let filterType = filterParts[0].toLowerCase();
-                let filterValue = filterParts.length > 1 ? filterParts.slice(1).join(':') : ''; // Handle potential colons in regex
+                let filterValue = filterParts.length > 1 ? filterParts.slice(1).join(':') : '';
                 let caseInsensitive = false;
 
                 if (filterType === 'all') {
                     rules.push({ groupName: groupName, type: 'all' });
-                    return; // Skip further processing for 'all'
+                    return;
                 }
 
                 if (filterValue.startsWith('ℹ️')) {
@@ -95,11 +62,10 @@
         return rules;
     }
 
-    // Filters nodes based on a rule object
     function filterNodesByRule(nodes, rule) {
         if (!Array.isArray(nodes)) return [];
         if (rule.type === 'all') {
-            return nodes; // Return all nodes for 'all' type
+            return nodes;
         }
 
         return nodes.filter(node => {
@@ -125,21 +91,20 @@
         console.log(`[📦 sing-box 模板脚本 v2] ${v}`);
     }
 
-    // --- Main Script Logic ---
+    // --- 主脚本逻辑 ---
     try {
-        // 1. Get Inputs & Parameters
-        // ADAPT: Use the actual Sub-Store function to get parameters
+        // 1. 获取输入和参数
         const params = parseParameters();
         log(`Raw parameters: ${JSON.stringify(params)}`);
 
         const subTypeNum = params.type ? parseInt(params.type, 10) : null;
         const subName = params.name;
-        const subUrl = params.url; // Optional URL parameter
+        const subUrl = params.url;
         const outboundRulesStr = params.outbound;
         const fallbackTag = params.fallback_tag || DEFAULT_FALLBACK_TAG;
         const includeUnsupported = params.includeUnsupportedProxy === 'true';
 
-        // Validate required parameters (either name/type or url must be provided)
+        // 验证必要参数
         if (!subUrl && (subTypeNum === null || (subTypeNum !== 0 && subTypeNum !== 1))) {
             throw new Error("Missing or invalid 'type' parameter (must be 0 or 1 if 'url' is not provided).");
         }
@@ -157,23 +122,18 @@
         }
         log(`Parsed ${rules.length} outbound rules.`);
 
-        // 2. Fetch Nodes
-        let fetchPromise;
-        if (subUrl) {
-            log(`Fetching nodes from URL: ${subUrl}`);
-            // ADAPT: Use the actual Sub-Store function to fetch from URL
-            fetchPromise = (typeof $substore !== 'undefined' && $substore.fetchNodes)
-                ? $substore.fetchNodes({ url: subUrl, includeUnsupportedProxy: includeUnsupported })
-                : Promise.resolve([]); // Placeholder
-        } else {
-            log(`Fetching nodes for ${subType}: ${subName}`);
-            // ADAPT: Use the actual Sub-Store function to fetch by type/name
-            fetchPromise = (typeof $substore !== 'undefined' && $substore.fetchNodes)
-                ? $substore.fetchNodes({ type: subType, name: subName, includeUnsupportedProxy: includeUnsupported })
-                : Promise.resolve([]); // Placeholder
-        }
+        // 2. 获取节点 - 使用同步方式
+        let allNodes = [];
 
-        const allNodes = await fetchPromise;
+        if (typeof $substore !== 'undefined' && $substore.fetchNodes) {
+            if (subUrl) {
+                log(`Fetching nodes from URL: ${subUrl}`);
+                allNodes = $substore.fetchNodesSync({ url: subUrl, includeUnsupportedProxy: includeUnsupported });
+            } else {
+                log(`Fetching nodes for ${subType}: ${subName}`);
+                allNodes = $substore.fetchNodesSync({ type: subType, name: subName, includeUnsupportedProxy: includeUnsupported });
+            }
+        }
 
         if (!Array.isArray(allNodes)) {
             throw new Error("Failed to fetch nodes or received invalid data format.");
@@ -184,8 +144,7 @@
         const proxyNodeTags = proxyNodes.map(node => node.tag);
         log(`Found ${proxyNodeTags.length} proxy nodes.`);
 
-        // 3. Get and Parse Base Template
-        // ADAPT: Use the actual Sub-Store function to get base content
+        // 3. 获取并解析基础模板
         const baseTemplateStr = (typeof $substore !== 'undefined' && $substore.getBaseContent)
             ? $substore.getBaseContent()
             : '{}';
@@ -201,7 +160,7 @@
             config.outbounds = [];
         }
 
-        // 4. Populate Predefined Groups in Template
+        // 4. 填充模板中预定义的组
         const groupTagsInTemplate = new Set(config.outbounds.map(o => o.tag));
         let groupsPopulatedCount = 0;
 
@@ -214,10 +173,9 @@
             const targetGroup = config.outbounds.find(o => o.tag === rule.groupName);
             if (!targetGroup) {
                 console.warn(`Could not find group object for tag "${rule.groupName}" even though tag exists. Skipping.`);
-                return; // Should not happen if tag exists, but safety check
+                return;
             }
 
-            // Ensure the target group has an 'outbounds' array
             if (!Array.isArray(targetGroup.outbounds)) {
                 targetGroup.outbounds = [];
             }
@@ -226,12 +184,11 @@
             const filteredTags = filteredNodes.map(node => node.tag);
 
             if (filteredTags.length > 0) {
-                targetGroup.outbounds = filteredTags; // Replace existing empty array
+                targetGroup.outbounds = filteredTags;
                 log(`Populated group "${rule.groupName}" with ${filteredTags.length} nodes matching rule type '${rule.type}'.`);
 
-                // Handle default for selectors if needed
                 if (targetGroup.type === 'selector' && !targetGroup.default) {
-                    targetGroup.default = filteredTags[0]; // Set default to the first node
+                    targetGroup.default = filteredTags[0];
                     log(`Set default for selector "${rule.groupName}" to "${filteredTags[0]}".`);
                 }
                 groupsPopulatedCount++;
@@ -242,30 +199,25 @@
 
         log(`Finished initial population pass. ${groupsPopulatedCount} groups populated with nodes.`);
 
-        // 5. Handle Empty Groups & Adjust Main Selector
+        // 5. 处理空组和调整主选择器
         let fallbackAdded = false;
         config.outbounds.forEach(group => {
-            // Check only policy groups (selector, urltest, etc.), not basic types or nodes themselves
             if (['selector', 'urltest', 'loadbalance'].includes(group.type)) {
                 if (!Array.isArray(group.outbounds) || group.outbounds.length === 0) {
                     log(`Group "${group.tag}" is empty. Adding fallback tag "${fallbackTag}".`);
-                    group.outbounds = [fallbackTag]; // Add fallback tag
+                    group.outbounds = [fallbackTag];
 
-                    // If it's a selector, also set its default to the fallback
                     if (group.type === 'selector') {
                         group.default = fallbackTag;
                     }
-                    fallbackAdded = true; // Mark that we might need the fallback definition
+                    fallbackAdded = true;
                 }
             }
         });
 
-        // Ensure the fallback outbound exists if it was used
         if (fallbackAdded && !config.outbounds.some(o => o.tag === fallbackTag)) {
-            // Add a simple direct outbound as the fallback if it's not DIRECT and doesn't exist
             if (fallbackTag !== 'DIRECT' && fallbackTag !== 'REJECT' && fallbackTag !== 'DNS-OUT') {
                 log(`Adding definition for fallback tag "${fallbackTag}" (type: direct).`);
-                // Insert it after basic outbounds for clarity
                 const insertIndex = config.outbounds.findIndex(o => o.tag === 'DNS-OUT') + 1 || 3;
                 config.outbounds.splice(insertIndex, 0, { tag: fallbackTag, type: 'direct' });
             } else {
@@ -273,44 +225,41 @@
             }
         }
 
-        // Adjust the main 'Proxy' selector's outbounds list based on which groups actually got populated
-        const mainProxySelector = config.outbounds.find(o => o.tag === '🪜 Proxy'); // Assuming this tag is used
+        const mainProxySelector = config.outbounds.find(o => o.tag === '🪜 Proxy');
         if (mainProxySelector && mainProxySelector.type === 'selector') {
             const originalProxyOutbounds = mainProxySelector.outbounds;
             mainProxySelector.outbounds = originalProxyOutbounds.filter(tag => {
-                if (tag === 'DIRECT') return true; // Always keep DIRECT
+                if (tag === 'DIRECT') return true;
                 const referencedGroup = config.outbounds.find(g => g.tag === tag);
-                // Keep the tag if the referenced group exists and either isn't empty or contains the fallback tag
                 return referencedGroup && Array.isArray(referencedGroup.outbounds) && referencedGroup.outbounds.length > 0 && referencedGroup.outbounds[0] !== fallbackTag;
             });
-            // Ensure Auto and Manual are only included if proxy nodes exist
+
             if (proxyNodeTags.length === 0) {
                 mainProxySelector.outbounds = mainProxySelector.outbounds.filter(tag => tag !== '♻️ 自动选择' && tag !== '🚀 手动切换');
             }
-            // Set default for main selector
+
             mainProxySelector.default = proxyNodeTags.length > 0 ? '♻️ 自动选择' : 'DIRECT';
             log(`Adjusted main selector "${mainProxySelector.tag}" outbounds. Default set to "${mainProxySelector.default}".`);
         }
 
-
-        // 6. Add Fetched Proxy Nodes to the End
-        // The template already defines policy groups. Now add the actual node definitions.
+        // 6. 添加代理节点到末尾
         config.outbounds.push(...proxyNodes);
         log(`Added ${proxyNodes.length} proxy node definitions to the end of the outbounds list.`);
 
-
-        // 7. Return Final JSON String
+        // 7. 返回最终的JSON字符串
         log("Script finished successfully.");
-        return JSON.stringify(config, null, 2); // Pretty-printed JSON
+        return JSON.stringify(config, null, 2);
 
     } catch (error) {
         log(`Error generating Sing-box configuration: ${error}`);
         console.error("Error generating Sing-box configuration:", error);
-        // Return JSON with error message for easier debugging in Sub-Store if possible
         return JSON.stringify({
             error: `Script execution failed: ${error.message || error}`,
-            details: error.stack // Include stack trace if available
+            details: error.stack
         }, null, 2);
     }
+}
 
-})();
+// 主函数调用 - 不使用async/await
+var result = run();
+result;
