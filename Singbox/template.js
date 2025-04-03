@@ -34,7 +34,7 @@
  * - console.log(), console.warn(), console.error(): For logging.
  */
 
-(() => {
+(async () => {
     // --- Constants & Defaults ---
     const DEFAULT_FALLBACK_TAG = 'DIRECT'; // Use DIRECT as default fallback
 
