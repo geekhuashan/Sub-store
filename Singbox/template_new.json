@@ -9,7 +9,7 @@
             {
                 "tag": "google",
                 "address": "https://8.8.8.8/dns-query",
-                "detour": "proxy"
+                "detour": "🚀 节点选择"
             },
             {
                 "tag": "ali",
@@ -93,7 +93,7 @@
             {
                 "clash_mode": "Global",
                 "action": "route",
-                "outbound": "GLOBAL"
+                "outbound": "🚀 节点选择"
             },
             {
                 "clash_mode": "Direct",
@@ -103,7 +103,7 @@
             {
                 "rule_set": "bilibili_domain",
                 "action": "route",
-                "outbound": "bilibili"
+                "outbound": "📺 哔哩哔哩"
             },
             {
                 "rule_set": [
@@ -111,67 +111,67 @@
                     "netflix_domain"
                 ],
                 "action": "route",
-                "outbound": "netflix"
+                "outbound": "🍿 奈飞视频"
             },
             {
                 "rule_set": "bahamut_domain",
                 "action": "route",
-                "outbound": "bahamut"
+                "outbound": "📺 巴哈姆特"
             },
             {
                 "rule_set": "youtube_domain",
                 "action": "route",
-                "outbound": "youtube"
+                "outbound": "📹 油管视频"
             },
             {
                 "rule_set": "openai_domain",
                 "action": "route",
-                "outbound": "openai"
+                "outbound": "💬 OpenAI"
             },
             {
                 "rule_set": "telegram_ip",
                 "action": "route",
-                "outbound": "telegram"
+                "outbound": "📲 电报消息"
             },
             {
                 "rule_set": "telegram_domain",
                 "action": "route",
-                "outbound": "telegram"
+                "outbound": "📲 电报消息"
             },
             {
                 "rule_set": "apple_ip",
                 "action": "route",
-                "outbound": "apple"
+                "outbound": "🍎 苹果服务"
             },
             {
                 "rule_set": "apple_domain",
                 "action": "route",
-                "outbound": "apple"
+                "outbound": "🍎 苹果服务"
             },
             {
                 "rule_set": "google_ip",
                 "action": "route",
-                "outbound": "google"
+                "outbound": "📢 谷歌服务"
             },
             {
                 "rule_set": "google_domain",
                 "action": "route",
-                "outbound": "google"
+                "outbound": "📢 谷歌服务"
             },
             {
                 "rule_set": "cn_ip",
                 "action": "route",
-                "outbound": "cn"
+                "outbound": "🎯 全球直连"
             },
             {
                 "rule_set": "cn_domain",
                 "action": "route",
-                "outbound": "cn"
+                "outbound": "🎯 全球直连"
             },
             {
                 "rule_set": "proxy_domain",
                 "action": "route",
-                "outbound": "proxy"
+                "outbound": "🚀 节点选择"
             }
         ],
         "rule_set": [
@@ -387,13 +387,9 @@
             "outbounds": [
                 "🚀 节点选择",
                 "🎯 全球直连",
-                "🇭🇰 香港节点",
                 "🇭🇰 香港自动",
-                "🇨🇳 台湾节点",
                 "🇨🇳 台湾自动",
-                "🇯🇵 日本节点",
                 "🇯🇵 日本自动",
-                "🇸🇬 狮城节点",
                 "🇸🇬 狮城自动",
                 "🇺🇲 美国节点",
                 "🇺🇲 美国自动",
