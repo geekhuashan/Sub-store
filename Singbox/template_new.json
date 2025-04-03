@@ -1,0 +1,648 @@
+{
+    "log": {
+        "level": "notify",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "ali-dns",
+                "address": "223.5.5.5",
+                "detour": "DIRECT"
+            },
+            {
+                "tag": "dnspod-dns",
+                "address": "119.29.29.29",
+                "detour": "DIRECT"
+            },
+            {
+                "tag": "google-dns-hijack",
+                "address": "8.8.8.8",
+                "detour": "DIRECT"
+            },
+            {
+                "tag": "google-dns-alt-hijack",
+                "address": "8.8.4.4",
+                "detour": "DIRECT"
+            },
+            {
+                "address": "rcode://success"
+            }
+        ],
+        "rules": [
+            {
+                "domain": [
+                    "taobao.com",
+                    "tmall.com"
+                ],
+                "domain_suffix": [
+                    ".taobao.com",
+                    ".tmall.com"
+                ],
+                "server": "ali-dns"
+            },
+            {
+                "domain": [
+                    "jd.com",
+                    "qq.com",
+                    "tencent.com",
+                    "weixin.com",
+                    "bilibili.com",
+                    "163.com",
+                    "126.com",
+                    "netease.com",
+                    "mi.com",
+                    "xiaomi.com"
+                ],
+                "domain_suffix": [
+                    ".jd.com",
+                    ".qq.com",
+                    ".tencent.com",
+                    ".weixin.com",
+                    ".bilibili.com",
+                    ".hdslb.com",
+                    ".163.com",
+                    ".126.com",
+                    ".126.net",
+                    ".127.net",
+                    ".netease.com",
+                    ".mi.com",
+                    ".xiaomi.com"
+                ],
+                "server": "dnspod-dns"
+            },
+            {
+                "domain_suffix": [
+                    ".alicdn.com",
+                    ".aliyun.com"
+                ],
+                "domain": [
+                    "aliyun.com"
+                ],
+                "server": "ali-dns"
+            },
+            {
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "server": "google-dns-hijack"
+            },
+            {
+                "domain_regex": "^[^.]*$",
+                "server": "dnspod-dns"
+            }
+        ],
+        "strategy": "ipv4_only",
+        "disable_cache": false
+    },
+    "inbounds": [
+        {
+            "tag": "http-in",
+            "type": "http",
+            "listen": "0.0.0.0",
+            "listen_port": 1080,
+            "sniff": true,
+            "sniff_override_destination": true
+        },
+        {
+            "tag": "socks-in",
+            "type": "socks",
+            "listen": "0.0.0.0",
+            "listen_port": 1081,
+            "sniff": true,
+            "sniff_override_destination": true
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "DIRECT",
+            "type": "direct"
+        },
+        {
+            "tag": "REJECT",
+            "type": "block"
+        },
+        {
+            "tag": "DNS-OUT",
+            "type": "dns"
+        },
+        {
+            "tag": "🇭🇰 香港节点",
+            "type": "urltest",
+            "outbounds": [],
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": "300s",
+            "tolerance": 150,
+            "interrupt_exist_connections": false
+        },
+        {
+            "tag": "🇨🇳 台湾节点",
+            "type": "urltest",
+            "outbounds": [],
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": "300s",
+            "tolerance": 150,
+            "interrupt_exist_connections": false
+        },
+        {
+            "tag": "🇯🇵 日本节点",
+            "type": "urltest",
+            "outbounds": [],
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": "300s",
+            "tolerance": 150,
+            "interrupt_exist_connections": false
+        },
+        {
+            "tag": "🇸🇬 狮城节点",
+            "type": "urltest",
+            "outbounds": [],
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": "300s",
+            "tolerance": 150,
+            "interrupt_exist_connections": false
+        },
+        {
+            "tag": "🇺🇲 美国节点",
+            "type": "selector",
+            "outbounds": [],
+            "default": ""
+        },
+        {
+            "tag": "🇰🇷 韩国节点",
+            "type": "selector",
+            "outbounds": [],
+            "default": ""
+        },
+        {
+            "tag": "🌐 其他节点",
+            "type": "selector",
+            "outbounds": [],
+            "default": ""
+        },
+        {
+            "tag": "♻️ 自动选择",
+            "type": "urltest",
+            "outbounds": [],
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": "300s",
+            "tolerance": 50,
+            "interrupt_exist_connections": false
+        },
+        {
+            "tag": "🚀 手动切换",
+            "type": "selector",
+            "outbounds": [],
+            "default": ""
+        },
+        {
+            "tag": "🪜 Proxy",
+            "type": "selector",
+            "outbounds": [
+                "♻️ 自动选择",
+                "🚀 手动切换",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇺🇲 美国节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "DIRECT"
+            ],
+            "default": "♻️ 自动选择"
+        },
+        {
+            "tag": "📹 油管视频",
+            "type": "selector",
+            "outbounds": [
+                "🪜 Proxy",
+                "♻️ 自动选择",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇺🇲 美国节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换",
+                "DIRECT"
+            ],
+            "default": "🪜 Proxy"
+        },
+        {
+            "tag": "🎥 奈飞视频",
+            "type": "selector",
+            "outbounds": [
+                "🪜 Proxy",
+                "🇸🇬 狮城节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇯🇵 日本节点",
+                "🇺🇲 美国节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换",
+                "DIRECT"
+            ],
+            "default": "🪜 Proxy"
+        },
+        {
+            "tag": "📺 巴哈姆特",
+            "type": "selector",
+            "outbounds": [
+                "🇨🇳 台湾节点",
+                "🪜 Proxy",
+                "🌐 其他节点",
+                "🚀 手动切换",
+                "DIRECT"
+            ],
+            "default": "🇨🇳 台湾节点"
+        },
+        {
+            "tag": "📺 哔哩哔哩",
+            "type": "selector",
+            "outbounds": [
+                "🎯 全球直连",
+                "🇨🇳 台湾节点",
+                "🇭🇰 香港节点",
+                "🌐 其他节点"
+            ],
+            "default": "🎯 全球直连"
+        },
+        {
+            "tag": "🌍 国外媒体",
+            "type": "selector",
+            "outbounds": [
+                "🪜 Proxy",
+                "♻️ 自动选择",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇺🇲 美国节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换",
+                "DIRECT"
+            ],
+            "default": "🪜 Proxy"
+        },
+        {
+            "tag": "🌏 国内媒体",
+            "type": "selector",
+            "outbounds": [
+                "DIRECT",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🌐 其他节点",
+                "🚀 手动切换"
+            ],
+            "default": "DIRECT"
+        },
+        {
+            "tag": "📲 电报消息",
+            "type": "selector",
+            "outbounds": [
+                "🪜 Proxy",
+                "♻️ 自动选择",
+                "🇸🇬 狮城节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇯🇵 日本节点",
+                "🇺🇲 美国节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换",
+                "DIRECT"
+            ],
+            "default": "🪜 Proxy"
+        },
+        {
+            "tag": "💬 OpenAi",
+            "type": "selector",
+            "outbounds": [
+                "🪜 Proxy",
+                "♻️ 自动选择",
+                "🇸🇬 狮城节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇯🇵 日本节点",
+                "🇺🇲 美国节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换",
+                "DIRECT"
+            ],
+            "default": "🪜 Proxy"
+        },
+        {
+            "tag": "📢 谷歌FCM",
+            "type": "selector",
+            "outbounds": [
+                "DIRECT",
+                "🪜 Proxy",
+                "🇺🇲 美国节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换"
+            ],
+            "default": "DIRECT"
+        },
+        {
+            "tag": "Ⓜ️ 微软服务",
+            "type": "selector",
+            "outbounds": [
+                "DIRECT",
+                "🪜 Proxy",
+                "🇺🇲 美国节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换"
+            ],
+            "default": "DIRECT"
+        },
+        {
+            "tag": "🍎 苹果服务",
+            "type": "selector",
+            "outbounds": [
+                "DIRECT",
+                "🪜 Proxy",
+                "🇺🇲 美国节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换"
+            ],
+            "default": "DIRECT"
+        },
+        {
+            "tag": "🎮 游戏平台",
+            "type": "selector",
+            "outbounds": [
+                "DIRECT",
+                "🪜 Proxy",
+                "🇺🇲 美国节点",
+                "🇭🇰 香港节点",
+                "🇨🇳 台湾节点",
+                "🇸🇬 狮城节点",
+                "🇯🇵 日本节点",
+                "🇰🇷 韩国节点",
+                "🌐 其他节点",
+                "🚀 手动切换"
+            ],
+            "default": "DIRECT"
+        },
+        {
+            "tag": "🎯 全球直连",
+            "type": "selector",
+            "outbounds": [
+                "DIRECT",
+                "🪜 Proxy",
+                "♻️ 自动选择"
+            ],
+            "default": "DIRECT"
+        },
+        {
+            "tag": "🛑 广告拦截",
+            "type": "selector",
+            "outbounds": [
+                "REJECT",
+                "DIRECT"
+            ],
+            "default": "REJECT"
+        },
+        {
+            "tag": "🍃 应用净化",
+            "type": "selector",
+            "outbounds": [
+                "REJECT",
+                "DIRECT"
+            ],
+            "default": "REJECT"
+        }
+    ],
+    "route": {
+        "geoip": {
+            "path": "geoip.db",
+            "download_url": "https://github.com/Hackl0us/GeoIP2-CN/raw/release/Country.mmdb",
+            "download_detour": "DIRECT"
+        },
+        "geosite": {
+            "path": "geosite.db",
+            "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db",
+            "download_detour": "DIRECT"
+        },
+        "rules": [
+            {
+                "ip_cidr": [
+                    "127.0.0.1/32",
+                    "::1/128",
+                    "192.168.0.0/16",
+                    "10.0.0.0/8",
+                    "172.16.0.0/12",
+                    "100.64.0.0/10",
+                    "17.0.0.0/8",
+                    "fc00::/7",
+                    "fe80::/10"
+                ],
+                "outbound": "DIRECT"
+            },
+            {
+                "domain_suffix": [
+                    ".local"
+                ],
+                "outbound": "DIRECT"
+            },
+            {
+                "domain_suffix": [
+                    ".srv.nintendo.net",
+                    ".stun.playstation.net",
+                    ".xboxlive.com",
+                    ".battlenet.com.cn",
+                    ".battlenet.com",
+                    ".blzstatic.cn",
+                    ".battle.net"
+                ],
+                "domain_keyword": [
+                    "xbox."
+                ],
+                "outbound": "DIRECT"
+            },
+            {
+                "rule_set": "adblock-rules",
+                "outbound": "🛑 广告拦截"
+            },
+            {
+                "rule_set": "netflix-rules",
+                "outbound": "🎥 奈飞视频"
+            },
+            {
+                "rule_set": "youtube-rules",
+                "outbound": "📹 油管视频"
+            },
+            {
+                "rule_set": "bahamut-rules",
+                "outbound": "📺 巴哈姆特"
+            },
+            {
+                "rule_set": "bilibili-rules",
+                "outbound": "📺 哔哩哔哩"
+            },
+            {
+                "rule_set": [
+                    "bilibili-rules-asia",
+                    "iq-rules",
+                    "iqiyi-rules",
+                    "letv-rules",
+                    "moo-rules",
+                    "tencentvideo-rules",
+                    "youku-rules",
+                    "foxplus-rules",
+                    "hulujapan-rules",
+                    "japonx-rules",
+                    "joox-rules",
+                    "kkbox-rules",
+                    "kktv-rules",
+                    "linetv-rules",
+                    "mytvsuper-rules",
+                    "niconico-rules",
+                    "viutv-rules"
+                ],
+                "outbound": "🌏 国内媒体"
+            },
+            {
+                "rule_set": [
+                    "abc-rules",
+                    "amazon-rules",
+                    "bbciplayer-rules",
+                    "dazn-rules",
+                    "discoveryplus-rules",
+                    "encoretvb-rules",
+                    "f1tv-rules",
+                    "foxnow-rules",
+                    "hulu-rules",
+                    "pandora-rules",
+                    "pbs-rules",
+                    "pornhub-rules",
+                    "soundcloud-rules"
+                ],
+                "outbound": "🌍 国外媒体"
+            },
+            {
+                "rule_set": [
+                    "applemusic-rules",
+                    "applenews-rules",
+                    "appletv-rules",
+                    "apple-rules"
+                ],
+                "outbound": "🍎 苹果服务"
+            },
+            {
+                "rule_set": "telegram-rules",
+                "outbound": "📲 电报消息"
+            },
+            {
+                "rule_set": "crypto-rules",
+                "outbound": "🪜 Proxy"
+            },
+            {
+                "rule_set": "discord-rules",
+                "outbound": "🪜 Proxy"
+            },
+            {
+                "rule_set": "googlefcm-rules",
+                "outbound": "📢 谷歌FCM"
+            },
+            {
+                "rule_set": "microsoft-rules",
+                "outbound": "Ⓜ️ 微软服务"
+            },
+            {
+                "rule_set": "ai-suite-rules",
+                "outbound": "💬 OpenAi"
+            },
+            {
+                "rule_set": "paypal-rules",
+                "outbound": "🪜 Proxy"
+            },
+            {
+                "rule_set": "scholar-rules",
+                "outbound": "🪜 Proxy"
+            },
+            {
+                "rule_set": "speedtest-rules",
+                "outbound": "🪜 Proxy"
+            },
+            {
+                "rule_set": "steam-rules",
+                "outbound": "🎮 游戏平台"
+            },
+            {
+                "rule_set": "proxy-rules",
+                "outbound": "🪜 Proxy"
+            },
+            {
+                "rule_set": [
+                    "domestic-rules",
+                    "domestic-ips-rules"
+                ],
+                "outbound": "🎯 全球直连"
+            },
+            {
+                "network": "lan",
+                "outbound": "DIRECT"
+            },
+            {
+                "geoip": [
+                    "cn"
+                ],
+                "outbound": "🎯 全球直连"
+            },
+            {
+                "match": "all",
+                "outbound": "🪜 Proxy"
+            }
+        ],
+        "rule_set": [
+            {
+                "tag": "adblock-rules",
+                "type": "remote",
+                "format": "source",
+                "url": "https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Surge/Surge%203/Provider/AdBlock.list",
+                "download_detour": "DIRECT",
+                "update_interval": "24h"
+            },
+            {
+                "tag": "netflix-rules",
+                "type": "remote",
+                "format": "source",
+                "url": "https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Surge/Surge%203/Provider/Media/Netflix.list",
+                "download_detour": "DIRECT",
+                "update_interval": "24h"
+            },
+            {
+                "tag": "domestic-ips-rules",
+                "type": "remote",
+                "format": "source",
+                "url": "https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Surge/Surge%203/Provider/Domestic%20IPs.list",
+                "download_detour": "DIRECT",
+                "update_interval": "24h"
+            }
+        ]
+    }
+}
