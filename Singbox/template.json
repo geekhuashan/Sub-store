@@ -614,7 +614,7 @@
                 "outbound": "🎯 全球直连"
             },
             {
-                "match": "all",
+                "final": true,
                 "outbound": "🪜 Proxy"
             }
         ],
