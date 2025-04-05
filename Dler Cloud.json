@@ -1,0 +1,1453 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "ui",
+      "secret": "",
+      "external_ui_download_url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "direct",
+      "default_mode": "rule"
+    },
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": false
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns_proxy",
+        "address": "tls://8.8.8.8",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "dns_direct",
+        "address": "https://223.5.5.5/dns-query",
+        "detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "dns_direct",
+        "disable_cache": true
+      },
+      {
+        "rule_set": "geosite-cn",
+        "server": "dns_direct"
+      },
+      {
+        "clash_mode": "direct",
+        "server": "dns_direct"
+      },
+      {
+        "clash_mode": "global",
+        "server": "dns_proxy"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "server": "dns_proxy"
+      }
+    ],
+    "final": "dns_direct",
+    "strategy": "ipv4_only"
+  },
+  "route": {
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "tun-in",
+      "type": "tun",
+      "address": [
+        "172.18.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "system",
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 7890
+        }
+      }
+    },
+    {
+      "tag": "mixed-in",
+      "type": "mixed",
+      "listen": "127.0.0.1",
+      "listen_port": 7890
+    }
+  ],
+  "outbounds": [
+    {
+        "tag": "Proxy",
+        "type": "selector",
+        "outbounds": [
+            "Auto - UrlTest",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Domestic",
+        "type": "selector",
+        "outbounds": [
+            "direct",
+            "Proxy",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Others",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "AI Suite",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Netflix",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Disney",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "YouTube",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Max",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Spotify",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Apple",
+        "type": "selector",
+        "outbounds": [
+            "direct",
+            "Proxy",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Telegram",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Microsoft",
+        "type": "selector",
+        "outbounds": [
+            "Proxy",
+            "direct",
+            "🇭🇰 香港 IEPL [01] [Air]",
+            "🇭🇰 香港 IEPL [02] [Air]",
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [01] [Air]",
+            "🇨🇳 台湾 IEPL [02] [Air]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [01] [Air]",
+            "🇸🇬 新加坡 IEPL [02] [Air]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]",
+            "🇯🇵 日本 IEPL [01] [Air]",
+            "🇯🇵 日本 IEPL [02] [Air]",
+            "🇰🇷 韩国 IEPL [01] [Air]",
+            "🇰🇷 韩国 IEPL [02] [Air]",
+            "🇺🇸 美国 IEPL [01] [Air]",
+            "🇺🇸 美国 IEPL [02] [Air]",
+            "🇷🇺 俄罗斯 IEPL [01] [Air]",
+            "🇷🇺 俄罗斯 IEPL [02] [Air]",
+            "🇨🇦 加拿大 IEPL [01] [Air]",
+            "🇨🇦 加拿大 IEPL [02] [Air]",
+            "🇮🇳 印度 IEPL [01] [Air]",
+            "🇮🇳 印度 IEPL [02] [Air]",
+            "🇹🇷 土耳其 IEPL [01] [Air]",
+            "🇹🇷 土耳其 IEPL [02] [Air]",
+            "🇳🇬 尼日利亚 IEPL [01] [Air]",
+            "🇳🇬 尼日利亚 IEPL [02] [Air]",
+            "🇧🇷 巴西 IEPL [01] [Air]",
+            "🇧🇷 巴西 IEPL [02] [Air]",
+            "🇩🇪 德国 IEPL [01] [Air]",
+            "🇩🇪 德国 IEPL [02] [Air]",
+            "🇫🇷 法国 IEPL [01] [Air]",
+            "🇫🇷 法国 IEPL [02] [Air]",
+            "🇹🇭 泰国 IEPL [01] [Air]",
+            "🇹🇭 泰国 IEPL [02] [Air]",
+            "🇦🇺 澳大利亚 IEPL [01] [Air]",
+            "🇦🇺 澳大利亚 IEPL [02] [Air]",
+            "🇬🇧 英国 IEPL [01] [Air]",
+            "🇬🇧 英国 IEPL [02] [Air]",
+            "🇵🇭 菲律宾 IEPL [01] [Air]",
+            "🇵🇭 菲律宾 IEPL [02] [Air]",
+            "🇦🇷 阿根廷 IEPL [01] [Air]",
+            "🇦🇷 阿根廷 IEPL [02] [Air]",
+            "🇲🇾 马来西亚 IEPL [01] [Air]",
+            "🇲🇾 马来西亚 IEPL [02] [Air]"
+        ]
+    },
+    {
+        "tag": "Auto - UrlTest",
+        "type": "urltest",
+        "outbounds": [
+            "🇭🇰 香港 IEPL [03] [Std]",
+            "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+            "🇭🇰 香港 IEPL [05] [Pro]",
+            "🇭🇰 香港 IEPL [06] [Pro]",
+            "🇨🇳 台湾 IEPL [03] [Std]",
+            "🇨🇳 台湾 IEPL [04] [Pro]",
+            "🇸🇬 新加坡 IEPL [03] [Std]",
+            "🇸🇬 新加坡 IEPL [04] [Pro]"
+        ],
+        "url": "http://cp.cloudflare.com/generate_204",
+        "interval": "10m",
+        "tolerance": 50
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇭🇰 香港 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 1059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇭🇰 香港 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 1059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇭🇰 香港 IEPL [03] [Std]",
+        "server": "iepl.std.7541.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "Qg5uQNp/F/q5XfDFYY8TwrmFfUEJ8vvDUxiihfKrRt4=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇭🇰 香港 IEPL [04] [Std] -> 美国 DMIT",
+        "server": "iepl.std.8932.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "i1pET9GDRG/5Zwrv513hynvnoS0tpPA2SWfFZm2A4ZU=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇭🇰 香港 IEPL [05] [Pro]",
+        "server": "iepl.pro.8775.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "xzTlnsmzU3Bpx/a+3DEE9Hy0LrVJaPFs35f+hKY/H1o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇭🇰 香港 IEPL [06] [Pro]",
+        "server": "iepl.pro.7353.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "HW5yQLpgWBk9X7jOnw6pUj6BeHojWLVdAlaH4a5fRQ8=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇨🇳 台湾 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 2059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇨🇳 台湾 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 2059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇨🇳 台湾 IEPL [03] [Std]",
+        "server": "iepl.std.7523.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "fha+65/3LGm2C6i4LPDrBuV+eSl4/h5IErWoVYng/T0=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇨🇳 台湾 IEPL [04] [Pro]",
+        "server": "iepl.pro.0129.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "BNZv01FJ0c4QtW8g70Vj7IF2PNzVh+5ng5TWQdhoG5M=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇸🇬 新加坡 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 3059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇸🇬 新加坡 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 3059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇸🇬 新加坡 IEPL [03] [Std]",
+        "server": "iepl.std.2348.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "nywdOdoSFMvqN+CPz1/tvChOG6emST341mSAPyuHnzk=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇸🇬 新加坡 IEPL [04] [Pro]",
+        "server": "iepl.pro.8766.0tk8a3a1q4t94dler.com",
+        "server_port": 14999,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "oO8gda8xRSdN8hshzYjFk8kgihhB2yVWKDnBP7zuQzw=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇯🇵 日本 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 4059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇯🇵 日本 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 4059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇰🇷 韩国 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 5059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇰🇷 韩国 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 5059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇺🇸 美国 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 6059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇺🇸 美国 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 6059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇷🇺 俄罗斯 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 2069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇷🇺 俄罗斯 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 2069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇨🇦 加拿大 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 3069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇨🇦 加拿大 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 3069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇮🇳 印度 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 4069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇮🇳 印度 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 4069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇹🇷 土耳其 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 5069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇹🇷 土耳其 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 5069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇳🇬 尼日利亚 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 5079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇳🇬 尼日利亚 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 5079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇧🇷 巴西 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 6069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇧🇷 巴西 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 6069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇩🇪 德国 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 7059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇩🇪 德国 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 7059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇫🇷 法国 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 7069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇫🇷 法国 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 7069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇹🇭 泰国 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 8069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇹🇭 泰国 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 8069,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇦🇺 澳大利亚 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 2079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇦🇺 澳大利亚 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 2079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇬🇧 英国 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 8059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇬🇧 英国 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 8059,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇵🇭 菲律宾 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 3079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇵🇭 菲律宾 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 3079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇦🇷 阿根廷 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 4079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇦🇷 阿根廷 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 4079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇲🇾 马来西亚 IEPL [01] [Air]",
+        "server": "pop.air.1432.0tk8a3a1q4t94dler.com",
+        "server_port": 6079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "shadowsocks",
+        "tag": "🇲🇾 马来西亚 IEPL [02] [Air]",
+        "server": "pop.air.6432.0tk8a3a1q4t94dler.com",
+        "server_port": 6079,
+        "method": "2022-blake3-aes-256-gcm",
+        "password": "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:Sy82u41wTEKNEcssEtp6UZXkQN6uyxJ1ft5xqHlMxSk=",
+        "tcp_fast_open": false
+    },
+    {
+        "type": "direct",
+        "tag": "direct"
+    }
+],
+    "route": {
+    "auto_detect_interface": true,
+    "final": "Proxy",
+    "rules": [
+      {
+        "inbound": ["tun-in","mixed-in"],
+        "action": "sniff"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": "geosite-category-ads-all",
+        "clash_mode": "rule",
+        "action": "reject"
+      },
+      {
+        "clash_mode": "direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "Proxy"
+      },
+      {
+        "domain": [
+          "clash.razord.top",
+          "yacd.metacubex.one",
+          "yacd.haishan.me",
+          "d.metacubex.one"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "geoip-netflix",
+          "geosite-netflix"
+        ],
+        "outbound": "Netflix"
+      },
+      {
+        "rule_set": "geosite-disney",
+        "outbound": "Disney"
+      },
+      {
+        "rule_set": ["geosite-youtube"],
+        "outbound": "YouTube"
+      },
+      {
+        "rule_set": "geosite-spotify",
+        "outbound": "Spotify"
+      },
+      {
+        "rule_set": [
+          "geoip-apple",
+          "geosite-apple"
+        ],
+        "outbound": "Apple"
+      },
+      {
+        "rule_set": [
+          "geoip-telegram",
+          "geosite-telegram"
+        ],
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": "geosite-openai",
+        "outbound": "AI Suite"
+      },
+      {
+        "rule_set": "geosite-microsoft",
+        "outbound": "Microsoft"
+      },
+      {
+        "rule_set": "geosite-private",
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
+        ],
+        "outbound": "Domestic"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "outbound": "Others"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-private",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-category-ads-all",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip-netflix",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/netflix.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-netflix",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/netflix.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-disney",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/disney.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-youtube",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/youtube.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-spotify",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/spotify.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-amazon",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/telegram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/telegram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-openai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-microsoft",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
+        "download_detour": "direct"
+      }
+    ]
+  }
+}
