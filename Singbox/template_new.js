@@ -21,6 +21,14 @@ config.outbounds.map(i => {
     if (['Auto - UrlTest'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies))
     }
+    // 全部节点组
+    if (['Selector'].includes(i.tag)) {
+        i.outbounds.push(...getTags(proxies))
+    }
+    // 美国手动组
+    if (['🇺🇸 美国手动'].includes(i.tag)) {
+        i.outbounds.push(...getTags(proxies, /美|us|unitedstates|united states|States|🇺🇸/i))
+    }
     // 香港节点
     if (['🇭🇰 香港自动'].includes(i.tag)) {
         i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|hong kong|Hong|🇭🇰/i))
