@@ -256,6 +256,22 @@
       ]
     },
     {
+      "tag": "Google Search",
+      "type": "selector",
+      "outbounds": [
+        "Proxy",
+        "direct",
+        "Selector",
+        "🇺🇸 美国手动",
+        "🇭🇰 香港自动",
+        "🇨🇳 台湾自动",
+        "🇯🇵 日本自动",
+        "🇸🇬 狮城自动",
+        "🇺🇲 美国自动",
+        "🇰🇷 韩国自动"
+      ]
+    },
+    {
       "tag": "Auto - UrlTest",
       "type": "urltest",
       "outbounds": [],
@@ -419,6 +435,10 @@
         "outbound": "Microsoft"
       },
       {
+        "rule_set": "geosite-google",
+        "outbound": "Google Search"
+      },
+      {
         "rule_set": "geosite-private",
         "outbound": "direct"
       },
@@ -549,6 +569,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/google.srs",
         "download_detour": "direct"
       }
     ]
