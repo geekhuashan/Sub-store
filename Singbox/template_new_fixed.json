@@ -351,7 +351,10 @@
     "final": "Proxy",
     "rules": [
       {
-        "inbound": ["tun-in","mixed-in"],
+        "inbound": [
+          "tun-in",
+          "mixed-in"
+        ],
         "action": "sniff"
       },
       {
@@ -405,7 +408,9 @@
         "outbound": "Disney"
       },
       {
-        "rule_set": ["geosite-youtube"],
+        "rule_set": [
+          "geosite-youtube"
+        ],
         "outbound": "YouTube"
       },
       {
@@ -427,16 +432,19 @@
         "outbound": "Telegram"
       },
       {
-        "rule_set": "geosite-openai",
-        "outbound": "AI Suite"
-      },
-      {
         "rule_set": "geosite-microsoft",
         "outbound": "Microsoft"
       },
       {
         "rule_set": "geosite-google",
         "outbound": "Google Search"
+      },
+      {
+        "rule_set": [
+          "geosite-openai",
+          "geosite-ai-chat"
+        ],
+        "outbound": "AI Suite"
       },
       {
         "rule_set": "geosite-private",
@@ -576,6 +584,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/google.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-ai-chat",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ai-chat-!cn.srs",
         "download_detour": "direct"
       }
     ]
